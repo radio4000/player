@@ -46,15 +46,18 @@
 				$app.setAttribute("href", window.location.origin);
 				$app.setAttribute("name", channel.name);
 				$app.setAttribute("image", createImage(channel.image));
-				$app.tracks = tracks
-					.map((track) => ({
-						...track,
-						body: track.description,
-					}))
-					.reverse();
+				$app.setAttribute(
+					"tracks",
+					JSON.stringify(
+						tracks
+							.map((track) => ({
+								...track,
+								body: track.description,
+							}))
+							.reverse(),
+					),
+				);
 
-				/* $app.setAttribute("channel", slug);
-				 $app.setAttribute("single-channel", true); */
 				document.querySelector("body").append($app);
 			})(Object.fromEntries(new URLSearchParams(window.location.search)));
 		</script>
