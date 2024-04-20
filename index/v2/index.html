@@ -25,7 +25,6 @@
 			}
 
 			(async ({ slug = "" }) => {
-				console.log("slug", slug);
 				if (!slug) return;
 				const { data: channel } = await sdk.channels.readChannel(slug);
 				const { data: tracks } = await sdk.channels.readChannelTracks(slug);
@@ -33,7 +32,6 @@
 				$app.setAttribute("href", window.location.origin);
 				$app.setAttribute("name", channel.name);
 				$app.setAttribute("image", createImage(channel.image));
-				console.log(channel, tracks)
 				$app.tracks = tracks.map((track) => ({
 					...track,
 					body: track.description,

@@ -22,7 +22,6 @@
 			(({ slug = "" }) => {
 				const url = new URL("https://api.radio4000.com/embed");
 				url.searchParams.set("slug", slug);
-				console.log("url", url.href);
 				const $iframe = document.createElement("iframe");
 				$iframe.setAttribute("src", url.href);
 				document.querySelector("body").replaceChildren($iframe);
