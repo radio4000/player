@@ -3,6 +3,36 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
+		<script
+			type="module"
+			src="https://cdn.jsdelivr.net/npm/@radio4000/components"
+		></script>
 	</head>
-	<body></body>
+	<body>
+		<script type="module">
+			import { sdk } from "https://cdn.jsdelivr.net/npm/@radio4000/sdk/+esm";
+			(async ({ slug = "" }) => {
+				console.log("slug", slug);
+				if (!slug) return;
+				const { data: channel } = await sdk.channels.readChannel(slug);
+				const { data: tracks } = await sdk.channels.readChannelTracks(slug);
+				const $app = document.createElement("r4-player");
+				$app.setAttribute("href", window.location.origin);
+				$app.setAttribute("title", channel.name);
+				$app.setAttribute("image", channel.image);
+				$app.setAttribute(
+					"tracks",
+					JSON.stringify(
+						tracks.map((track) => ({
+							...track,
+							body: track.description,
+						})),
+					),
+				);
+				/* $app.setAttribute("channel", slug);
+				 $app.setAttribute("single-channel", true); */
+				document.querySelector("body").append($app);
+			})(Object.fromEntries(new URLSearchParams(window.location.search)));
+		</script>
+	</body>
 </html>
