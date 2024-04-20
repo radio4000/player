@@ -37,7 +37,7 @@
 				$app.tracks = tracks.map((track) => ({
 					...track,
 					body: track.description,
-				}))
+				})).reverse()
 
 				/* $app.setAttribute("channel", slug);
 				 $app.setAttribute("single-channel", true); */
