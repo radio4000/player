@@ -1,0 +1,15 @@
+{
+	"version": "0.0.1",
+	"name": "@radio4000/player",
+	"description": "a media player for radio4000 on the web ",
+	"author": "radio4000",
+	"license": "GPL-3.0-or-later",
+	"scripts": {
+		"dev": "npx serve -p 4444 index"
+	},
+	"devDependencies": {
+		"prettier": "^3.2.5",
+		"serve": "^14.2.1"
+	},
+	"prettierrc": {}
+}
