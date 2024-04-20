@@ -11,6 +11,19 @@
 	<body>
 		<script type="module">
 			import { sdk } from "https://cdn.jsdelivr.net/npm/@radio4000/sdk/+esm";
+
+			//import { createImage } from "https://cdn.jsdelivr.net/npm/@radio4000/components/r4-avatar/+esm";
+			/**
+			 * @param {string} id - from cloudinary image
+			 */
+			export function createImage(id) {
+				const baseUrl = 'https://res.cloudinary.com/radio4000/image/upload'
+				const size = 250
+				const dimensions = `w_${size},h_${size}`
+				const crop = 'c_thumb,q_60'
+				return `${baseUrl}/${dimensions},${crop},fl_awebp/${id}.webp`
+			}
+
 			(async ({ slug = "" }) => {
 				console.log("slug", slug);
 				if (!slug) return;
@@ -18,17 +31,14 @@
 				const { data: tracks } = await sdk.channels.readChannelTracks(slug);
 				const $app = document.createElement("r4-player");
 				$app.setAttribute("href", window.location.origin);
-				$app.setAttribute("title", channel.name);
-				$app.setAttribute("image", channel.image);
-				$app.setAttribute(
-					"tracks",
-					JSON.stringify(
-						tracks.map((track) => ({
-							...track,
-							body: track.description,
-						})),
-					),
-				);
+				$app.setAttribute("name", channel.name);
+				$app.setAttribute("image", createImage(channel.image));
+				console.log(channel, tracks)
+				$app.tracks = tracks.map((track) => ({
+					...track,
+					body: track.description,
+				}))
+
 				/* $app.setAttribute("channel", slug);
 				 $app.setAttribute("single-channel", true); */
 				document.querySelector("body").append($app);
