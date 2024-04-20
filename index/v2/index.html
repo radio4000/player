@@ -7,6 +7,20 @@
 			type="module"
 			src="https://cdn.jsdelivr.net/npm/@radio4000/components"
 		></script>
+		<style>
+			html,
+			body,
+			r4-player {
+				min-height: 100%;
+				min-width: 100%;
+				display: flex;
+				margin: 0;
+			}
+			r4-player radio4000-player {
+				flex-grow: 1;
+				height: 100%;
+			}
+		</style>
 	</head>
 	<body>
 		<script type="module">
@@ -17,11 +31,11 @@
 			 * @param {string} id - from cloudinary image
 			 */
 			export function createImage(id) {
-				const baseUrl = 'https://res.cloudinary.com/radio4000/image/upload'
-				const size = 250
-				const dimensions = `w_${size},h_${size}`
-				const crop = 'c_thumb,q_60'
-				return `${baseUrl}/${dimensions},${crop},fl_awebp/${id}.webp`
+				const baseUrl = "https://res.cloudinary.com/radio4000/image/upload";
+				const size = 250;
+				const dimensions = `w_${size},h_${size}`;
+				const crop = "c_thumb,q_60";
+				return `${baseUrl}/${dimensions},${crop},fl_awebp/${id}.webp`;
 			}
 
 			(async ({ slug = "" }) => {
@@ -32,10 +46,12 @@
 				$app.setAttribute("href", window.location.origin);
 				$app.setAttribute("name", channel.name);
 				$app.setAttribute("image", createImage(channel.image));
-				$app.tracks = tracks.map((track) => ({
-					...track,
-					body: track.description,
-				})).reverse()
+				$app.tracks = tracks
+					.map((track) => ({
+						...track,
+						body: track.description,
+					}))
+					.reverse();
 
 				/* $app.setAttribute("channel", slug);
 				 $app.setAttribute("single-channel", true); */
