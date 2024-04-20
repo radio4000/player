@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
   deploy:
     permissions:
       pages: write
