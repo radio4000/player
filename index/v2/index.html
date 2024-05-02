@@ -19,11 +19,13 @@
 		</style>
 	</head>
 	<body>
-		<script type="module">
-			import "https://cdn.jsdelivr.net/npm/@radio4000/components/dist/r4.js";
-			import { sdk } from "https://cdn.jsdelivr.net/npm/@radio4000/sdk/+esm";
+		<r4-player></r4-player>
 
-			//import { createImage } from "https://cdn.jsdelivr.net/npm/@radio4000/components/r4-avatar/+esm";
+		<script type="module">
+			import "https://fastly.jsdelivr.net/npm/@radio4000/components@0.1.69/dist/r4.js";
+			import { sdk } from "https://fastly.jsdelivr.net/npm/@radio4000/sdk/+esm";
+
+			//import { createImage } from "https://fastly.jsdelivr.net/npm/@radio4000/components/r4-avatar/+esm";
 			/**
 			 * @param {string} id - from cloudinary image
 			 */
@@ -39,23 +41,16 @@
 				if (!slug) return;
 				const { data: channel } = await sdk.channels.readChannel(slug);
 				const { data: tracks } = await sdk.channels.readChannelTracks(slug);
-				const $app = document.createElement("r4-player");
+				const $app = document.querySelector("r4-player");
 				$app.setAttribute("href", window.location.origin);
 				$app.setAttribute("name", channel.name);
 				$app.setAttribute("image", createImage(channel.image));
-				$app.setAttribute(
-					"tracks",
-					JSON.stringify(
-						tracks
-							.map((track) => ({
-								...track,
-								body: track.description,
-							}))
-							.reverse(),
-					),
-				);
-
-				document.querySelector("body").append($app);
+				$app.tracks = tracks.map(track => {
+					return {
+						...track,
+						body: track.description,
+						}
+				}).reverse()
 			})(Object.fromEntries(new URLSearchParams(window.location.search)));
 		</script>
 	</body>
