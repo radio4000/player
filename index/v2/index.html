@@ -3,6 +3,15 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
+
+		<!-- for iframe embed in other domains -->
+		<meta http-equiv="Content-Security-Policy" content="frame-ancestors *" />
+
+		<script
+			type="module"
+			src="https://cdn.jsdelivr.net/npm/@radio4000/components"
+		></script>
+
 		<style>
 			html,
 			body,
@@ -45,12 +54,14 @@
 				$app.setAttribute("href", window.location.origin);
 				$app.setAttribute("name", channel.name);
 				$app.setAttribute("image", createImage(channel.image));
-				$app.tracks = tracks.map(track => {
-					return {
-						...track,
-						body: track.description,
-						}
-				}).reverse()
+				$app.tracks = tracks
+					.map((track) => {
+						return {
+							...track,
+							body: track.description,
+						};
+					})
+					.reverse();
 			})(Object.fromEntries(new URLSearchParams(window.location.search)));
 		</script>
 	</body>
