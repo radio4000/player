@@ -3,5 +3,11 @@
   "compatibility_date": "2022-04-05",
   "assets": {
     "directory": "./index/"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "player.radio4000.com",
+      "custom_domain": true
+    }
+  ]
 }
